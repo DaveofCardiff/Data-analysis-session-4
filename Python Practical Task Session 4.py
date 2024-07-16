@@ -101,10 +101,19 @@ av_per_city = airbnb.groupby(['city'])[['price',
     
 #2.	Lowest Price per neighbourhood with the index reset.
 
-per_neighbourhood = airbnb.groupby(['neighbourhood'])[['price']]
+per_neighbourhood = airbnb.groupby(['neighbourhood'])[['price']].min().reset_index()
 
+#3.	Highest price per accommodates - index reset - data rounded to 1 decimal 
+#place & then sorted by accommodates (ascending False)
 
+per_accommodates = airbnb.groupby(['accommodates'])[['price']].max().round(1).reset_index()
+per_accommodates.sort_values(['accommodates'], ascending=False, inplace=True)
 
+#4.	Finally - Save the 3 groupby - Feel free to add any other functions along the way.
+
+av_per_city.to_csv(path +"av_per_citye.csv", index = False)
+per_neighbourhood.to_csv(path +"per_neighbourhood.csv", index = False)
+per_accommodates.to_csv(path +"per_accommodates.csv", index = False)
 
 
     
